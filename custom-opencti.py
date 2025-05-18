@@ -346,13 +346,13 @@ def query_opencti(alert, url, token):
             ind_filter = [f"[domain-name:value = '{filter_values[0]}']", f"[hostname:value = '{filter_values[0]}']"] + list(map(lambda a: ind_ip_pattern(a), results))
         # Look up sha256 hashes for files added to the system or files that have been modified:
         elif 'syscheck_file' in groups and any(x in groups for x in ['syscheck_entry_added', 'syscheck_entry_modified']):
-            filter_key = 'hashes.SHA256'
+            filter_key = 'hashes'
             filter_values = [alert['syscheck']['sha256_after']]
             ind_filter = [f"[file:hashes.'SHA-256' = '{filter_values[0]}']"]
         # Look up sha256 hashes in columns of any osqueries:
         # Currently, only osquery_file is defined in wazuh_manager.conf, but add 'osquery' for future use(?):
         elif any(x in groups for x in ['osquery', 'osquery_file']):
-            filter_key = 'hashes.SHA256'
+            filter_key = 'hashes'
             filter_values = [alert['data']['osquery']['columns']['sha256']]
             ind_filter = [f"[file:hashes.'SHA-256' = '{filter_values[0]}']"]
         elif 'audit_command' in groups:
