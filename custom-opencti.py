@@ -307,7 +307,7 @@ def query_opencti(alert, url, token):
         # For any sysmon event that provides a sha256 hash (matches the group
         # name regex):
         if any(True for _ in filter(sha256_sysmon_event_regex.match, groups)):
-            filter_key='hashes.SHA256'
+            filter_key='hashes'
             # It is not a 100 % guaranteed that there is a (valid) sha256 hash
             # present in the metadata. Quit if no hash is found:
             match = regex_file_hash.search(alert['data']['win']['eventdata']['hashes'])
